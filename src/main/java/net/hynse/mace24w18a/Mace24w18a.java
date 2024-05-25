@@ -30,12 +30,6 @@
         @Override
         public void onEnable() {
             Bukkit.getPluginManager().registerEvents(this, this);
-            getLogger().info("MacePlugin has been enabled!");
-        }
-
-        @Override
-        public void onDisable() {
-            getLogger().info("MacePlugin has been disabled.");
         }
 
         @EventHandler
@@ -93,7 +87,7 @@
         }
 
         private boolean isMace(ItemStack item) {
-            return item != null && item.getType() == Material.MACE && item.containsEnchantment(Enchantment.UNBREAKING);
+            return item != null && item.getType() == Material.MACE;
         }
 
         private double calculateMaceDamage(double fallDistance, ItemStack mace) {
