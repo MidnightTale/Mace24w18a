@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id("io.github.goooler.shadow") version "8.1.7"
 }
 
 group = 'net.hynse'
@@ -15,10 +16,22 @@ repositories {
         name = "sonatype"
         url = "https://oss.sonatype.org/content/groups/public/"
     }
+
+    maven { url 'https://repo.codemc.io/repository/maven-releases/' }
+    maven {
+        name = "jitpack"
+        url = "https://jitpack.io/"
+    }
+    maven {
+        url = uri("https://repo.papermc.io/repository/maven-public/")
+    }
 }
 
+
 dependencies {
-    compileOnly "org.spigotmc:spigot-api:1.20.6-R0.1-SNAPSHOT"
+    compileOnly("io.papermc.paper:paper-api:1.20.6-R0.1-SNAPSHOT")
+
+    implementation  'com.github.retrooper.packetevents:spigot:2.3.0'
 }
 
 def targetJavaVersion = 21
@@ -38,7 +51,12 @@ tasks.withType(JavaCompile).configureEach {
         options.release.set(targetJavaVersion)
     }
 }
-
+shadowJar {
+    // Define the desired JAR file name format
+    minimize()
+    relocate 'com.github.retrooper.packetevents', 'net.hynse.mace24w18a.packetevents.api'
+    archiveFileName.set("${rootProject.name}-${version}.jar")
+}
 processResources {
     def props = [version: version]
     inputs.properties props
