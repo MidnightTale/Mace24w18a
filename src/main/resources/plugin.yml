@@ -1,0 +1,4 @@
+name: Mace24w18a
+version: '${version}'
+main: net.hynse.mace24w18a.Mace24w18a
+api-version: '1.20'
