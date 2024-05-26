@@ -8,6 +8,7 @@
     import org.bukkit.entity.Entity;
     import org.bukkit.entity.Player;
     import org.bukkit.event.EventHandler;
+    import org.bukkit.event.EventPriority;
     import org.bukkit.event.Listener;
     import org.bukkit.event.entity.EntityDamageByEntityEvent;
     import org.bukkit.event.inventory.CraftItemEvent;
@@ -32,7 +33,7 @@
             Bukkit.getPluginManager().registerEvents(this, this);
         }
 
-        @EventHandler
+        @EventHandler(priority = EventPriority.LOWEST)
         public void onPlayerMove(PlayerMoveEvent event) {
             Player player = event.getPlayer();
             UUID playerUUID = player.getUniqueId();
@@ -48,7 +49,7 @@
             }
         }
 
-        @EventHandler
+        @EventHandler(priority = EventPriority.LOWEST)
         public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
             if (event.getDamager() instanceof Player) {
                 Player player = (Player) event.getDamager();
@@ -68,7 +69,7 @@
             }
         }
 
-        @EventHandler
+        @EventHandler(priority = EventPriority.LOWEST)
         public void onCraftMace(CraftItemEvent event) {
             ItemStack craftedItem = event.getCurrentItem();
 
@@ -83,7 +84,7 @@
         }
 
         private boolean isFalling(Player player) {
-            return player.getVelocity().getY() < 0 && player.getLocation().subtract(0, 1, 0).getBlock().getType() == Material.AIR;
+            return !player.isGliding() && player.getVelocity().getY() < 0 && player.getLocation().subtract(0, 1, 0).getBlock().getType() == Material.AIR;
         }
 
         private boolean isMace(ItemStack item) {
