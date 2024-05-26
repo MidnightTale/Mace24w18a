@@ -84,7 +84,7 @@
         }
 
         private boolean isFalling(Player player) {
-            return !player.isGliding() && player.getVelocity().getY() < 0 && player.getLocation().subtract(0, 1, 0).getBlock().getType() == Material.AIR;
+            return !player.isInsideVehicle() && !player.isInPowderedSnow() && !player.isInBubbleColumn() && !player.isInWater() && !player.isInLava() && !player.isClimbing() && !player.isSleeping() && !player.isDead() && !player.isFlying() && !player.isGliding() && player.getVelocity().getY() < 0 && player.getLocation().subtract(0, 1, 0).getBlock().getType() == Material.AIR;
         }
 
         private boolean isMace(ItemStack item) {
