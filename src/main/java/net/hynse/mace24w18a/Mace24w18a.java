@@ -37,6 +37,10 @@
         public void onPlayerMove(PlayerMoveEvent event) {
             Player player = event.getPlayer();
             UUID playerUUID = player.getUniqueId();
+            if (fallStartHeights.containsKey(playerUUID) && player.getVelocity().getY() > 0) {
+                    fallStartHeights.remove(playerUUID);
+                    return;
+            }
 
             if (isFalling(player)) {
                 if (!fallStartHeights.containsKey(playerUUID)) {
