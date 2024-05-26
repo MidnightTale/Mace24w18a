@@ -109,19 +109,19 @@
                 if (densityLevel > 0 && fallDistance >= 3) {
                     switch (densityLevel) {
                         case 1:
-                            damage += 0.5 * fallDistance * 0.5;
+                            damage += 0.5 * fallDistance;
                             break;
                         case 2:
-                            damage += 1 * fallDistance * 0.5;
+                            damage += 1 * fallDistance;
                             break;
                         case 3:
-                            damage += 1.5 * fallDistance * 0.5;
+                            damage += 1.5 * fallDistance;
                             break;
                         case 4:
-                            damage += 2 * fallDistance * 0.5;
+                            damage += 2 * fallDistance;
                             break;
                         case 5:
-                            damage += 2.5 * fallDistance * 0.5;
+                            damage += 2.5 * fallDistance;
                             break;
                         default:
                             break;
