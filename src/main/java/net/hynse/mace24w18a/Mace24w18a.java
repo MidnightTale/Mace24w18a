@@ -5,15 +5,12 @@
     import org.bukkit.attribute.Attribute;
     import org.bukkit.attribute.AttributeModifier;
     import org.bukkit.enchantments.Enchantment;
-    import org.bukkit.entity.Entity;
     import org.bukkit.entity.Player;
     import org.bukkit.event.EventHandler;
     import org.bukkit.event.EventPriority;
     import org.bukkit.event.Listener;
     import org.bukkit.event.entity.EntityDamageByEntityEvent;
     import org.bukkit.event.inventory.CraftItemEvent;
-    import org.bukkit.event.inventory.PrepareAnvilEvent;
-    import org.bukkit.event.inventory.PrepareItemCraftEvent;
     import org.bukkit.event.player.PlayerMoveEvent;
     import org.bukkit.inventory.EquipmentSlot;
     import org.bukkit.inventory.ItemStack;
@@ -42,17 +39,12 @@
                 fallStartHeights.remove(playerUUID);
                 return;
             }
-
             if (isFalling(player)) {
                 if (!fallStartHeights.containsKey(playerUUID)) {
-                    Material blockBelow = player.getLocation().subtract(0, 1, 0).getBlock().getType();
-                    if (blockBelow != Material.AIR) {
-                        fallStartHeights.put(playerUUID, player.getLocation().getY());
-                    }
-                }
-            } else {
-                if (fallStartHeights.containsKey(playerUUID)) {
-                    fallStartHeights.remove(playerUUID);
+                        Material blockBelow = player.getLocation().subtract(0, 1, 0).getBlock().getType();
+                        if (blockBelow != Material.AIR) {
+                            fallStartHeights.put(playerUUID, player.getLocation().getY());
+                        }
                 }
             }
         }
@@ -94,7 +86,7 @@
         }
 
         private boolean isFalling(Player player) {
-            return !player.isInsideVehicle() && !player.isInPowderedSnow() && !player.isInBubbleColumn() && !player.isInWater() && !player.isInLava() && !player.isClimbing() && !player.isSleeping() && !player.isDead() && !player.isFlying() && !player.isGliding() && player.getVelocity().getY() < 0 && player.getLocation().subtract(0, 1, 0).getBlock().getType() == Material.AIR;
+            return !player.isClimbing() && !player.isFlying() && !player.isGliding() && player.getVelocity().getY() < 0;
         }
 
         private boolean isMace(ItemStack item) {
