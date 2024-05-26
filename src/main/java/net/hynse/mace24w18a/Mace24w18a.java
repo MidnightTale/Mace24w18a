@@ -93,13 +93,16 @@
 
         private double calculateMaceDamage(double fallDistance, ItemStack mace) {
             double damage = 0;
+            double step1damage = 3.2;
+            double step2damage = 1.6;
+            double step3damage = 0.8;
             if (fallDistance > 0) {
                 if (fallDistance <= 3) {
-                    damage = fallDistance * 4;
+                    damage = fallDistance * step1damage;
                 } else if (fallDistance <= 8) {
-                    damage = 3 * 4 + (fallDistance - 3) * 2;
+                    damage = 3 * step1damage + (fallDistance - 3) * step2damage;
                 } else {
-                    damage = 3 * 4 + 5 * 2 + (fallDistance - 8) * 1;
+                    damage = 3 * step1damage + 5 * step2damage + (fallDistance - 8) * step3damage;
                 }
 
                 int densityLevel = mace.getEnchantmentLevel(Enchantment.DENSITY);
