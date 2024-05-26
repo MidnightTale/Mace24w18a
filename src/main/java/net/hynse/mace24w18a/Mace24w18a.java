@@ -77,7 +77,7 @@
                 ItemMeta meta = Bukkit.getItemFactory().getItemMeta(Material.MACE);
                 if (meta != null) {
                     meta.addAttributeModifier(Attribute.GENERIC_ATTACK_DAMAGE, new AttributeModifier(UUID.randomUUID(), "Mace Damage", 5, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND));
-                    meta.addAttributeModifier(Attribute.GENERIC_ATTACK_SPEED, new AttributeModifier(UUID.randomUUID(), "Mace Speed", 0.5, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND));
+                    meta.addAttributeModifier(Attribute.GENERIC_ATTACK_SPEED, new AttributeModifier(UUID.randomUUID(), "Mace Speed", -3, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND));
                     craftedItem.setItemMeta(meta);
                 }
             }
