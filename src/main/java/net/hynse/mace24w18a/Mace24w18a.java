@@ -37,14 +37,18 @@
         public void onPlayerMove(PlayerMoveEvent event) {
             Player player = event.getPlayer();
             UUID playerUUID = player.getUniqueId();
+
             if (fallStartHeights.containsKey(playerUUID) && player.getVelocity().getY() > 0) {
-                    fallStartHeights.remove(playerUUID);
-                    return;
+                fallStartHeights.remove(playerUUID);
+                return;
             }
 
             if (isFalling(player)) {
                 if (!fallStartHeights.containsKey(playerUUID)) {
-                    fallStartHeights.put(playerUUID, player.getLocation().getY());
+                    Material blockBelow = player.getLocation().subtract(0, 1, 0).getBlock().getType();
+                    if (blockBelow != Material.AIR) {
+                        fallStartHeights.put(playerUUID, player.getLocation().getY());
+                    }
                 }
             } else {
                 if (fallStartHeights.containsKey(playerUUID)) {
@@ -52,6 +56,7 @@
                 }
             }
         }
+
 
         @EventHandler(priority = EventPriority.LOWEST)
         public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
@@ -61,14 +66,15 @@
 
                 if (isMace(itemInHand)) {
                     UUID playerUUID = player.getUniqueId();
-                    if (fallStartHeights.containsKey(playerUUID)) {
+                    if (!fallStartHeights.containsKey(playerUUID)) {
+                        fallStartHeights.put(playerUUID, player.getLocation().getY());
+                    }
                         double startY = fallStartHeights.get(playerUUID);
                         double endY = player.getLocation().getY();
                         double fallDistance = startY - endY;
 
                         double damage = calculateMaceDamage(fallDistance, itemInHand);
                         event.setDamage(damage);
-                    }
                 }
             }
         }
