@@ -39,12 +39,14 @@
                 fallStartHeights.remove(playerUUID);
                 return;
             }
+
             if (isFalling(player)) {
-                if (!fallStartHeights.containsKey(playerUUID)) {
-                        Material blockBelow = player.getLocation().subtract(0, 1, 0).getBlock().getType();
-                        if (blockBelow != Material.AIR) {
-                            fallStartHeights.put(playerUUID, player.getLocation().getY());
-                        }
+                if (!fallStartHeights.containsKey(playerUUID) && wasOnSolidGround(player)) {
+                    fallStartHeights.put(playerUUID, player.getLocation().getY());
+                }
+            } else {
+                if (fallStartHeights.containsKey(playerUUID)) {
+                    fallStartHeights.remove(playerUUID);
                 }
             }
         }
@@ -88,6 +90,20 @@
         private boolean isFalling(Player player) {
             return !player.isClimbing() && !player.isFlying() && !player.isGliding() && player.getVelocity().getY() < 0;
         }
+        private boolean wasOnSolidGround(Player player) {
+            for (int x = -1; x <= 1; x++) {
+                for (int z = -1; z <= 1; z++) {
+                    for (int y = -1; y <= 0; y++) {
+                        Material blockBelow = player.getLocation().add(x, y, z).getBlock().getType();
+                        if (blockBelow.isSolid()) {
+                            return true;
+                        }
+                    }
+                }
+            }
+            return false;
+        }
+
 
         private boolean isMace(ItemStack item) {
             return item != null && item.getType() == Material.MACE;
