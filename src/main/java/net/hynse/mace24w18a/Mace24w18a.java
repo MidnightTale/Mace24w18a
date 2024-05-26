@@ -107,8 +107,28 @@
 
                 int densityLevel = mace.getEnchantmentLevel(Enchantment.DENSITY);
                 if (densityLevel > 0 && fallDistance >= 3) {
-                    damage += densityLevel * fallDistance * 0.5;
+                    switch (densityLevel) {
+                        case 1:
+                            damage += 0.5 * fallDistance * 0.5;
+                            break;
+                        case 2:
+                            damage += 1 * fallDistance * 0.5;
+                            break;
+                        case 3:
+                            damage += 1.5 * fallDistance * 0.5;
+                            break;
+                        case 4:
+                            damage += 2 * fallDistance * 0.5;
+                            break;
+                        case 5:
+                            damage += 2.5 * fallDistance * 0.5;
+                            break;
+                        default:
+                            break;
+                    }
                 }
+
+
             }
             return damage;
         }
